@@ -1,0 +1,83 @@
+---
+title: "YAML"
+author: NAME ANA 515 Assignment  2
+date:  2022
+output: word_document
+---
+
+```{r, include=FALSE}
+library(markdown)
+library(readr)
+library(bslib)
+library(tidyverse)
+library(knitr)
+library(dplyr)
+library(rmarkdown)
+library(ggplot2)
+library(janitor)
+library(dplyr)
+```
+
+```{r ,include=FALSE}
+
+url <- "https://github.com/fivethirtyeight/data/blob/master/bad-drivers/bad-drivers.csv"
+data_538<- read.csv(url)
+View(data_538)
+```
+
+answer:1 
+the content of the data set is with respect to states.
+content are  the columns 
+1) Number of drivers involved in fatal collisions per billion miles
+2) Percentage of drivers involved in fatal collisions who were spending
+3) percentage of drivers involved in fatal collisions who were alcohol-impaired
+4) percentage of drivers involved in fatal collisions who were not distracted
+5) percentage of drivers involved in fatal collisions who had not been involved in any previous accidents
+6) Car Insurance premiums
+7) losses incurred by insurance companies for collisions per insured driver
+
+
+all the variables are giving us a discrete numerical values which mean the quantitative variables it was collected from the traffic police
+the data was saved in comma separated values(csv) format
+delimited the comma was used for delimiters and  we normally used to excel to open a csv file.
+the data is not in binary format its a quantitative dataset.
+
+
+
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r,include=FALSE}
+library(readr)
+bad_drivers <- read_csv("/Users/sarah/Desktop/bad-drivers.csv")
+View(bad_drivers)
+library(dplyr)
+```
+
+
+```{r,include=FALSE}
+```
+
+
+
+```{r,include=FALSE}
+cleandata<-clean_names(bad_drivers)
+colnames(cleandata)
+View(cleandata)
+
+```
+
+```{r,include=FALSE}
+bad_drivers2<-cleandata%>% filter(number_of_drivers_involved_in_fatal_collisions_per_billion_miles > 15 , percentage_of_drivers_involved_in_fatal_collisions_who_were_speeding > 30 , percentage_of_drivers_involved_in_fatal_collisions_who_were_alcohol_impaired >30 , percentage_of_drivers_involved_in_fatal_collisions_who_had_not_been_involved_in_any_previous_accidents>40)
+```
+
+```{r,echo=FALSE}
+hist(bad_drivers2$number_of_drivers_involved_in_fatal_collisions_per_billion_miles)
+```
+In this graph, we see the numbers of drivers involved in fatal collisions per billion miles, looking at the graph, I am able to see the frequency at which this collisions is occuring.The number of drivers involved in fatal collisions ranging from 16 to 18 has the most frequency in this case, the state of hawaii, Missouri, wyoming, North Carolina and Pennyslvania. The least frequent number of drivers involved in fatal collisions is the range of 22 to 24 which is the state of South Carolina. 
+```{r}
+plot(bad_drivers2$car_insurance_premiums,bad_drivers2$number_of_drivers_involved_in_fatal_collisions_per_billion_miles)
+```
+In this graph, we see the the number of drivers involved in fatal collisions per billions miles with car_insurance premiums. We see the number of drivers involved in fatal collisions per billions miles ranging from 16 to 18 have car insurance premiums ranging from 700 to 860, while the number of drivers involved in fatal collisions per billions miles ranging from 22 to 24 have  car insurance premiums ranging from 850 to 900. 
